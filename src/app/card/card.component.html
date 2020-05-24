@@ -1,4 +1,11 @@
 <mat-card class="agb-card">
-    <mat-card-content class="agb-card-content">{{cardContent}}</mat-card-content>
-    <mat-card-footer>+ 0</mat-card-footer>
+    <mat-card-content class="agb-card-content">{{cardData?.content}}</mat-card-content>
+    <mat-card-footer class="agb-card-footer">
+        <span>+ 0</span>
+        <div class="mr-2">
+            <mat-icon class="m-1" (click)="edit()">edit</mat-icon>
+            <mat-icon class="m-1" *ngIf="cardData?.isHide"  (click)="visibility(true)">visibility</mat-icon>
+            <mat-icon class="m-1" *ngIf="!cardData?.isHide"  (click)="visibility(false)">visibility_off</mat-icon>
+        </div>
+    </mat-card-footer>
 </mat-card>

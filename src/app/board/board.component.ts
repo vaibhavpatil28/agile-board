@@ -78,5 +78,42 @@ export class BoardComponent implements OnInit {
       sectionList.unshift(result);
     });
   }
+  changeVisibility(show: boolean, sectionName?: string, index?: number) {
+    console.log('changeVisibility show: ', show);
+    switch (sectionName) {
+      case AgileBoardSection.WhatWentWell:
+        this.whatWentWellCards[index].isHide = !show;
+        break;
+      case AgileBoardSection.WhatCanBeImproved:
+        this.whatCanBeImprovedCards[index].isHide = !show;
+        break;
+      case AgileBoardSection.StartDoing:
+        this.startDoingCards[index].isHide = !show;
+        break;
+      case AgileBoardSection.ActionItem:
+        this.actionItemCards[index].isHide = !show;
+        break;
+      default:
+        break;
+    }
+  }
+  updateCard(isEdit: boolean, sectionName: string, index: number) {
+    switch (sectionName) {
+      case AgileBoardSection.WhatWentWell:
+        this.openDialog(AgileBoardSection.WhatWentWell, this.whatWentWellCards, index);
+        break;
+      case AgileBoardSection.WhatCanBeImproved:
+        this.openDialog(AgileBoardSection.WhatCanBeImproved, this.whatCanBeImprovedCards, index);
+        break;
+      case AgileBoardSection.StartDoing:
+        this.openDialog(AgileBoardSection.StartDoing, this.startDoingCards, index);
+        break;
+      case AgileBoardSection.ActionItem:
+        this.openDialog(AgileBoardSection.ActionItem, this.actionItemCards, index);
+        break;
+      default:
+        break;
+    }
+  }
 
 }

@@ -5,4 +5,12 @@
     &-content{
         overflow-wrap: break-word;
     }
+    &-footer{
+        display: flex;
+        justify-content: space-between;
+    }
+    .material-icons{
+        font-size: 20px;
+        cursor: pointer;
+    }
 }

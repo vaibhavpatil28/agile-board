@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CardData } from '../board/board.component';
 
 @Component({
   selector: 'agb-card',
@@ -7,10 +8,18 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CardComponent implements OnInit {
 
-  @Input() cardContent: string;
+  @Input() cardData: CardData;
+  @Output() editChanges= new EventEmitter<boolean>();
+  @Output() visibilityChanges= new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+  edit(){
+    this.editChanges.emit(true);
+  }
+  visibility(show:boolean){
+    this.visibilityChanges.emit(show);
   }
 
 }
