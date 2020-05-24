@@ -13,7 +13,7 @@
             <div class="agb-card-group">
                 <ng-container *ngFor="let cardData of whatWentWellCards; let i=index">
                     <agb-card
-                        class="d-md-flex mx-2 my-2"
+                        class="d-md-flex mx-2 my-2 card-bg-light-orange"
                         *ngIf="!cardData.isHide"
                         (editChanges)="updateCard($event, 'WhatWentWell',i)"
                         (visibilityChanges)="changeVisibility($event, cardData,i)"
@@ -34,7 +34,7 @@
             <div class="agb-card-group">
                 <ng-container *ngFor="let cardData of whatCanBeImprovedCards; let i=index">
                     <agb-card
-                        class="d-md-flex mx-2 my-2"
+                        class="d-md-flex mx-2 my-2 card-bg-light-blue"
                         *ngIf="!cardData.isHide"
                         (editChanges)="updateCard($event, 'WhatCanBeImproved',i)"
                         (visibilityChanges)="changeVisibility($event,cardData,i)"
@@ -57,7 +57,7 @@
             <div class="agb-card-group">
                 <ng-container *ngFor="let cardData of startDoingCards; let i=index">
                     <agb-card
-                        class="d-md-flex mx-2 my-2"
+                        class="d-md-flex mx-2 my-2 card-bg-light-green"
                         *ngIf="!cardData.isHide"
                         (editChanges)="updateCard($event, 'StartDoing',i)"
                         (visibilityChanges)="changeVisibility($event, cardData,i)"
@@ -78,7 +78,7 @@
             <div class="agb-card-group">
                 <ng-container *ngFor="let cardData of actionItemCards; let i=index">
                     <agb-card
-                        class="d-md-flex mx-2 my-2"
+                        class="d-md-flex mx-2 my-2 card-bg-light-gray"
                         *ngIf="!cardData.isHide"
                         (editChanges)="updateCard($event, 'ActionItem',i)"
                         (visibilityChanges)="changeVisibility($event, cardData,i)"
@@ -102,8 +102,14 @@
                 <ng-container *ngFor="let cardData of hiddenCards; let i=index">
                     <agb-card
                         class="d-md-flex mx-2 my-2"
+                        [ngClass]="{
+                            'card-bg-light-orange':cardData.sectionName === 'WhatWentWell',
+                            'card-bg-light-blue':cardData.sectionName === 'WhatCanBeImproved',
+                            'card-bg-light-green':cardData.sectionName === 'StartDoing',
+                            'card-bg-light-gray':cardData.sectionName === 'ActionItem'
+                          }"
                         *ngIf="cardData.isHide"
-                        (editChanges)="updateCard($event, cardData.sectionName,i)"
+                        (editChanges)="updateCard($event, 'HiddenCard',i)"
                         (visibilityChanges)="changeVisibility($event, cardData,i)"
                         [cardData]="cardData"></agb-card>
                 </ng-container>

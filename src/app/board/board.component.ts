@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateNewCardComponent } from './create-new-card/create-new-card.component';
+import { v4 as uuidv4 } from 'uuid';
 
 export enum AgileBoardSection {
   WhatWentWell = 'WhatWentWell',
   WhatCanBeImproved = 'WhatCanBeImproved',
   StartDoing = 'StartDoing',
-  ActionItem = 'ActionItem'
+  ActionItem = 'ActionItem',
+  HiddenCard = 'HiddenCard'
 }
 export interface CardData {
+  id: string;
   content: string;
-  sectionName: AgileBoardSection.ActionItem | AgileBoardSection.StartDoing | AgileBoardSection.WhatCanBeImproved | AgileBoardSection.WhatWentWell,
+  sectionName: AgileBoardSection,
   isHide?: boolean,
   isEdit?: boolean
 }
@@ -63,7 +66,7 @@ export class BoardComponent implements OnInit {
   }
   openDialog(sectionName: AgileBoardSection, sectionList: CardData[], index?: number) {
     const dialogRef = this.dialog.open(CreateNewCardComponent, {
-      data: (index >= 0) ? { ...sectionList[index], isEdit: true } : undefined,
+      data: (index >= 0) ? { cardData: sectionList[index], isEdit: true } : undefined,
       width: '400px',
     });
     dialogRef.afterClosed().subscribe((result: CardData) => {
@@ -76,41 +79,25 @@ export class BoardComponent implements OnInit {
         return;
       }
       result.sectionName = sectionName;
+      result.id = uuidv4();
       sectionList.unshift(result);
     });
   }
-  changeVisibility(show: boolean, sectionName?: any, index?: number) {
+  changeVisibility(show: boolean, card: CardData, index?: number) {
     console.log('changeVisibility show: ', show);
-    sectionName.isHide = !show;
-    this.updateHiddenCardList(show, sectionName,index);
-    // switch (sectionName) {
-    //   case AgileBoardSection.WhatWentWell:
-    //     this.whatWentWellCards[index].isHide = !show;
-    //     this.updateHiddenCardList(show, this.whatWentWellCards[index],index);
-    //     break;
-    //   case AgileBoardSection.WhatCanBeImproved:
-    //     this.whatCanBeImprovedCards[index].isHide = !show;
-    //     break;
-    //   case AgileBoardSection.StartDoing:
-    //     this.startDoingCards[index].isHide = !show;
-    //     break;
-    //   case AgileBoardSection.ActionItem:
-    //     this.actionItemCards[index].isHide = !show;
-    //     break;
-    //   default:
-    //     break;
-    // }
+    card.isHide = !show;
+    this.updateHiddenCardList(show, card);
   }
-  private updateHiddenCardList(show, card:CardData, index:number) {
+  private updateHiddenCardList(show, card: CardData) {
     if (show) {
       const deleteIndx = this.hiddenCards.indexOf(card);
-      this.hiddenCards.splice(deleteIndx,1);
-    }else{
+      this.hiddenCards.splice(deleteIndx, 1);
+    } else {
       this.hiddenCards.push(card);
     }
     console.log('this.hiddenCards: ', this.hiddenCards);
   }
-  updateCard(isEdit: boolean, sectionName: string, index: number) {
+  updateCard(isEdit: boolean, sectionName: string, index: number, cardData?: CardData) {
     switch (sectionName) {
       case AgileBoardSection.WhatWentWell:
         this.openDialog(AgileBoardSection.WhatWentWell, this.whatWentWellCards, index);
@@ -123,6 +110,9 @@ export class BoardComponent implements OnInit {
         break;
       case AgileBoardSection.ActionItem:
         this.openDialog(AgileBoardSection.ActionItem, this.actionItemCards, index);
+        break;
+      case AgileBoardSection.HiddenCard:
+        this.openDialog(AgileBoardSection.ActionItem, this.hiddenCards, index);
         break;
       default:
         break;

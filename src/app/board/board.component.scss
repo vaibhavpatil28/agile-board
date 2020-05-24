@@ -1,25 +1,48 @@
-.agb-board{
+.agb-board {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  &-section {
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    &-section{
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex: 1 1 50%;
-    }
-    .agb-card-header{
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-}
-.agb-card-group{
+    align-items: center;
+    flex: 1 1 50%;
+    background: #fafafa;
+    border: 1px solid #e5e5e5;
+  }
+  .agb-card-header {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+  }
 }
-.agb-button-add{
-    background-color: #008000;
-    color: #ffffff;
+.agb-card-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .card-bg-light-orange {
+    ::ng-deep .agb-card {
+      background-color: #ffbf88;
+    }
+  }
+  .card-bg-light-green {
+    ::ng-deep .agb-card {
+      background-color: #90ee90;
+    }
+  }
+  .card-bg-light-blue {
+    ::ng-deep .agb-card {
+      background-color: #add8e6;
+    }
+  }
+  .card-bg-light-gray {
+    ::ng-deep .agb-card {
+      background-color: #d3d3d3;
+    }
+  }
+}
+.agb-button-add {
+  background-color: #008000;
+  color: #ffffff;
 }
