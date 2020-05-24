@@ -1,0 +1,58 @@
+<main class="agb-board">
+    <div class="d-md-flex mb-2">
+        <section class="agb-board-section">
+            <header class="agb-card-header">
+                <h1 class="mb-0">What Went Well</h1>
+                <div class="agb-button-container ml-2">
+                    <button mat-mini-fab aria-label="add icon button with a add icon"  class="agb-button-add" (click)="createNewCard('WhatWentWell')">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </header>
+            <div class="agb-card-group">
+                <agb-card *ngFor="let cardData of whatWentWellCards" [cardContent]="cardData.content" class="d-md-flex mx-2 my-2"></agb-card>
+            </div>
+        </section>
+        <section class="agb-board-section ml-md-5">
+            <header class="agb-card-header">
+                <h1 class="mb-0">What Can Be Improved</h1>
+                <div class="agb-button-container ml-2">
+                    <button mat-mini-fab aria-label="add icon button with a add icon"  class="agb-button-add" (click)="createNewCard('WhatCanBeImproved')">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </header>
+            <div class="agb-card-group">
+                <agb-card *ngFor="let cardData of whatCanBeImprovedCards" [cardContent]="cardData.content" class="d-md-flex mx-2 my-2"></agb-card>
+            </div>
+        </section>
+    </div>
+    <div class="d-md-flex mb-2">
+        <section class="agb-board-section">
+            <header class="agb-card-header">
+                <h1 class="mb-0">Start Doing</h1>
+                <div class="agb-button-container ml-2">
+                    <button mat-mini-fab aria-label="add icon button with a add icon"  class="agb-button-add" (click)="createNewCard('StartDoing')">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </header>
+            <div class="agb-card-group">
+                <agb-card *ngFor="let cardData of startDoingCards" [cardContent]="cardData.content" class="d-md-flex mx-2 my-2"></agb-card>
+            </div>
+        </section>
+        <section class="agb-board-section  ml-md-5">
+            <header class="agb-card-header">
+                <h1 class="mb-0">Action Items</h1>
+                <div class="agb-button-container ml-2">
+                    <button mat-mini-fab aria-label="add icon button with a add icon"  class="agb-button-add" (click)="createNewCard('ActionItem')">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </header>
+            <div class="agb-card-group">
+                <agb-card *ngFor="let cardData of actionItemCards" [cardContent]="cardData.content" class="d-md-flex mx-2 my-2"></agb-card>
+            </div>
+        </section>
+    </div>
+</main>

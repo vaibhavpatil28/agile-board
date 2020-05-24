@@ -1,0 +1,25 @@
+.agb-board{
+    display: flex;
+    flex-direction: column;
+    &-section{
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1 1 50%;
+    }
+    .agb-card-header{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+.agb-card-group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.agb-button-add{
+    background-color: #008000;
+    color: #ffffff;
+}

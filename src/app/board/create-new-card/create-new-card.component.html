@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{data.isEdit? 'Update' : 'Create New'}} Card</h1>
+<div mat-dialog-content>
+  <p>Add details of task (max characters 1000) </p>
+  <mat-form-field class="w-100" appearance="outline">
+    <textarea matInput [(ngModel)]="data.content" (keyup.enter)="saveCard()" cdkFocusInitial maxlength="10000"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions  class="justify-content-center">
+  <button mat-button (click)="dialogClose()">No Thanks</button>
+  <button mat-button (click)="saveCard()" >Ok</button>
+</div>
