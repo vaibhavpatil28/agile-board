@@ -25,19 +25,7 @@ export interface CardData {
 })
 export class BoardComponent implements OnInit {
 
-  whatWentWellCards = [{
-    content: 'card 1',
-    sectionName: AgileBoardSection.WhatWentWell
-  }, {
-    content: 'card 2',
-    sectionName: AgileBoardSection.WhatWentWell
-  }, {
-    content: 'card 3',
-    sectionName: AgileBoardSection.WhatWentWell
-  }, {
-    content: 'card 4',
-    sectionName: AgileBoardSection.WhatWentWell
-  }] as CardData[];
+  whatWentWellCards = [] as CardData[];
   whatCanBeImprovedCards = [] as CardData[];
   startDoingCards = [] as CardData[];
   actionItemCards = [] as CardData[];
@@ -64,9 +52,9 @@ export class BoardComponent implements OnInit {
         break;
     }
   }
-  openDialog(sectionName: AgileBoardSection, sectionList: CardData[], index?: number) {
+  openDialog(sectionName: AgileBoardSection, sectionList: CardData[], index?: number,hiddenIndx?:number) {
     const dialogRef = this.dialog.open(CreateNewCardComponent, {
-      data: (index >= 0) ? { cardData: sectionList[index], isEdit: true } : undefined,
+      data: (index >= 0) ? { cardData: {...sectionList[index]}, isEdit: true } : undefined,
       width: '400px',
     });
     dialogRef.afterClosed().subscribe((result: CardData) => {
@@ -76,6 +64,9 @@ export class BoardComponent implements OnInit {
       }
       if (index >= 0) {
         sectionList.splice(index, 1, result);
+        if (hiddenIndx >= 0) {
+          this.hiddenCards.splice(hiddenIndx, 1, result);
+        }
         return;
       }
       result.sectionName = sectionName;
@@ -97,22 +88,39 @@ export class BoardComponent implements OnInit {
     }
     console.log('this.hiddenCards: ', this.hiddenCards);
   }
-  updateCard(isEdit: boolean, sectionName: string, index: number, cardData?: CardData) {
-    switch (sectionName) {
+  fingCardIndex(sectionList:CardData[], selectedCard:CardData){
+    return sectionList.findIndex((value)=> value.id === selectedCard.id)
+  }
+  updateCard(isEdit: boolean, sectionName: string, index: number, cardData?: CardData, isHiddenList = false) {
+    let hiddenIndx = -1;
+    switch (cardData.sectionName) {
       case AgileBoardSection.WhatWentWell:
-        this.openDialog(AgileBoardSection.WhatWentWell, this.whatWentWellCards, index);
+        index = this.fingCardIndex(this.whatWentWellCards, cardData);
+        if (isHiddenList) {
+          hiddenIndx = this.fingCardIndex(this.hiddenCards, cardData);
+        }
+        this.openDialog(AgileBoardSection.WhatWentWell, this.whatWentWellCards, index, hiddenIndx);
         break;
       case AgileBoardSection.WhatCanBeImproved:
-        this.openDialog(AgileBoardSection.WhatCanBeImproved, this.whatCanBeImprovedCards, index);
+        index = this.fingCardIndex(this.whatCanBeImprovedCards, cardData);
+        if (isHiddenList) {
+          hiddenIndx = this.fingCardIndex(this.hiddenCards, cardData);
+        }
+        this.openDialog(AgileBoardSection.WhatCanBeImproved, this.whatCanBeImprovedCards, index, hiddenIndx);
         break;
       case AgileBoardSection.StartDoing:
-        this.openDialog(AgileBoardSection.StartDoing, this.startDoingCards, index);
+        index = this.fingCardIndex(this.startDoingCards, cardData);
+        if (isHiddenList) {
+          hiddenIndx = this.fingCardIndex(this.hiddenCards, cardData);
+        }
+        this.openDialog(AgileBoardSection.StartDoing, this.startDoingCards, index, hiddenIndx);
         break;
       case AgileBoardSection.ActionItem:
-        this.openDialog(AgileBoardSection.ActionItem, this.actionItemCards, index);
-        break;
-      case AgileBoardSection.HiddenCard:
-        this.openDialog(AgileBoardSection.ActionItem, this.hiddenCards, index);
+        index = this.fingCardIndex(this.actionItemCards, cardData);
+        if (isHiddenList) {
+          hiddenIndx = this.fingCardIndex(this.hiddenCards, cardData);
+        }
+        this.openDialog(AgileBoardSection.ActionItem, this.actionItemCards, index, hiddenIndx);
         break;
       default:
         break;

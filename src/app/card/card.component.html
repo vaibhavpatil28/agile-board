@@ -1,11 +1,15 @@
 <mat-card class="agb-card">
+    <header *ngIf="cardData?.isHide">
+        <h5 class="mb-0"><b>Section : {{cardData?.sectionName|camelCaseToRegularString}}</b></h5>
+        <hr class="my-0">
+    </header>
     <mat-card-content class="agb-card-content">{{cardData?.content}}</mat-card-content>
     <mat-card-footer class="agb-card-footer">
         <span>+ 0</span>
         <div class="mr-2">
             <mat-icon class="m-1" (click)="edit()">edit</mat-icon>
-            <mat-icon class="m-1" *ngIf="cardData?.isHide"  (click)="visibility(true)">visibility</mat-icon>
-            <mat-icon class="m-1" *ngIf="!cardData?.isHide"  (click)="visibility(false)">visibility_off</mat-icon>
+            <mat-icon class="m-1" *ngIf="cardData?.isHide" (click)="visibility(true)">visibility</mat-icon>
+            <mat-icon class="m-1" *ngIf="!cardData?.isHide" (click)="visibility(false)">visibility_off</mat-icon>
         </div>
     </mat-card-footer>
 </mat-card>
