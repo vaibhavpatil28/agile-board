@@ -38,6 +38,7 @@ export class BoardComponent implements OnInit {
   whatCanBeImprovedCards = [] as CardData[];
   startDoingCards = [] as CardData[];
   actionItemCards = [] as CardData[];
+  hiddenCards = [] as CardData[];
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -78,24 +79,36 @@ export class BoardComponent implements OnInit {
       sectionList.unshift(result);
     });
   }
-  changeVisibility(show: boolean, sectionName?: string, index?: number) {
+  changeVisibility(show: boolean, sectionName?: any, index?: number) {
     console.log('changeVisibility show: ', show);
-    switch (sectionName) {
-      case AgileBoardSection.WhatWentWell:
-        this.whatWentWellCards[index].isHide = !show;
-        break;
-      case AgileBoardSection.WhatCanBeImproved:
-        this.whatCanBeImprovedCards[index].isHide = !show;
-        break;
-      case AgileBoardSection.StartDoing:
-        this.startDoingCards[index].isHide = !show;
-        break;
-      case AgileBoardSection.ActionItem:
-        this.actionItemCards[index].isHide = !show;
-        break;
-      default:
-        break;
+    sectionName.isHide = !show;
+    this.updateHiddenCardList(show, sectionName,index);
+    // switch (sectionName) {
+    //   case AgileBoardSection.WhatWentWell:
+    //     this.whatWentWellCards[index].isHide = !show;
+    //     this.updateHiddenCardList(show, this.whatWentWellCards[index],index);
+    //     break;
+    //   case AgileBoardSection.WhatCanBeImproved:
+    //     this.whatCanBeImprovedCards[index].isHide = !show;
+    //     break;
+    //   case AgileBoardSection.StartDoing:
+    //     this.startDoingCards[index].isHide = !show;
+    //     break;
+    //   case AgileBoardSection.ActionItem:
+    //     this.actionItemCards[index].isHide = !show;
+    //     break;
+    //   default:
+    //     break;
+    // }
+  }
+  private updateHiddenCardList(show, card:CardData, index:number) {
+    if (show) {
+      const deleteIndx = this.hiddenCards.indexOf(card);
+      this.hiddenCards.splice(deleteIndx,1);
+    }else{
+      this.hiddenCards.push(card);
     }
+    console.log('this.hiddenCards: ', this.hiddenCards);
   }
   updateCard(isEdit: boolean, sectionName: string, index: number) {
     switch (sectionName) {

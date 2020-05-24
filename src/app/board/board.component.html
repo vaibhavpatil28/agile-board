@@ -16,7 +16,7 @@
                         class="d-md-flex mx-2 my-2"
                         *ngIf="!cardData.isHide"
                         (editChanges)="updateCard($event, 'WhatWentWell',i)"
-                        (visibilityChanges)="changeVisibility($event, 'WhatWentWell',i)"
+                        (visibilityChanges)="changeVisibility($event, cardData,i)"
                         [cardData]="cardData"></agb-card>
                 </ng-container>
             </div>
@@ -37,7 +37,7 @@
                         class="d-md-flex mx-2 my-2"
                         *ngIf="!cardData.isHide"
                         (editChanges)="updateCard($event, 'WhatCanBeImproved',i)"
-                        (visibilityChanges)="changeVisibility($event,'WhatCanBeImproved',i)"
+                        (visibilityChanges)="changeVisibility($event,cardData,i)"
                         [cardData]="cardData"></agb-card>
                 </ng-container>
             </div>
@@ -60,7 +60,7 @@
                         class="d-md-flex mx-2 my-2"
                         *ngIf="!cardData.isHide"
                         (editChanges)="updateCard($event, 'StartDoing',i)"
-                        (visibilityChanges)="changeVisibility($event, 'StartDoing',i)"
+                        (visibilityChanges)="changeVisibility($event, cardData,i)"
                         [cardData]="cardData"></agb-card>
                 </ng-container>
             </div>
@@ -81,7 +81,30 @@
                         class="d-md-flex mx-2 my-2"
                         *ngIf="!cardData.isHide"
                         (editChanges)="updateCard($event, 'ActionItem',i)"
-                        (visibilityChanges)="changeVisibility($event, 'ActionItem',i)"
+                        (visibilityChanges)="changeVisibility($event, cardData,i)"
+                        [cardData]="cardData"></agb-card>
+                </ng-container>
+            </div>
+        </section>
+    </div>
+    <div class="d-md-flex mb-2">
+        <section class="agb-board-section">
+            <header class="agb-card-header">
+                <h1 class="mb-0">Hidden Cards from All sections</h1>
+                <!-- <div class="agb-button-container ml-2">
+                    <button mat-mini-fab aria-label="add icon button with a add icon" class="agb-button-add"
+                        (click)="createNewCard('StartDoing')">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div> -->
+            </header>
+            <div class="agb-card-group">
+                <ng-container *ngFor="let cardData of hiddenCards; let i=index">
+                    <agb-card
+                        class="d-md-flex mx-2 my-2"
+                        *ngIf="cardData.isHide"
+                        (editChanges)="updateCard($event, cardData.sectionName,i)"
+                        (visibilityChanges)="changeVisibility($event, cardData,i)"
                         [cardData]="cardData"></agb-card>
                 </ng-container>
             </div>
